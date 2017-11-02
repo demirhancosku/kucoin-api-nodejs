@@ -99,7 +99,7 @@ class Kucoin {
 
             setTimeout(() => {
                 request.end();
-            },this.latency);
+            },self.latency);
             return body;
         });
 
