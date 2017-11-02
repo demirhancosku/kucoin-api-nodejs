@@ -6,7 +6,7 @@ let kucoin = new Kucoin(config._api_key, config._api_secret, config._api_latency
     pricedelimiter = 0.00000001,
     amount = 2000,
     summary = [],
-    symbol = 'RPX-BTC';
+    symbol = config._api_pair;
 
 data.container = {
     last_sell: 0,
