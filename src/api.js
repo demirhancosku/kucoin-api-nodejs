@@ -6,9 +6,10 @@ const _crypto = require("crypto");
 
 class Kucoin {
 
-    constructor(api_key,api_secret) {
+    constructor(api_key,api_secret,latency) {
         this._api_key = api_key;
         this._api_secret = api_secret;
+        this.latency = latency === undefined ? 0 : latency;
         this._nonce = '';
     }
 
@@ -96,8 +97,9 @@ class Kucoin {
                 request.write(self.serialize(param));
             }
 
-
-            request.end();
+            setTimeout(() => {
+                request.end();
+            },this.latency);
             return body;
         });
 
@@ -126,6 +128,11 @@ class Kucoin {
     async create_order(type,symbol,price,amount) {
         return this.api_call('POST','order',{type:type, symbol: symbol, price : price, amount: amount})
     }
+
+    async cancel_order(type,symbol,orderOid) {
+        return this.api_call('POST','cancel-order',{type:type, symbol: symbol, orderOid: orderOid})
+    }
+
 
 
     serialize(obj) {

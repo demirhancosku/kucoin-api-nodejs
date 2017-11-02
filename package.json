@@ -1,0 +1,28 @@
+{
+  "name": "kucoin-api-nodejs",
+  "version": "1.0.0",
+  "description": "Nodejs Kucoin Api Wrapper with a simple trade bot",
+  "main": "src/api.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/demirhancosku/kucoin-api-nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "kucoin",
+    "api"
+  ],
+  "author": "Coşku Demirhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/demirhancosku/kucoin-api-nodejs/issues"
+  },
+  "homepage": "https://github.com/demirhancosku/kucoin-api-nodejs#readme",
+  "dependencies": {
+    "node-schedule": "^1.2.5",
+    "underscore": "^1.8.3"
+  }
+}
