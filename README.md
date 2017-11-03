@@ -6,13 +6,13 @@
 
 ## API Wrapper
 
-You can initialize api wrapper instance like;
+Initialization api wrapper instance
 
 ```JavaScript
 let kucoin = new Kucoin('apikey', 'secret', 'base_latency');
 ```
 
-Then you can use endpoints using await or callback
+Using endpoints
 
 ```JavaScript
 let ticker =  await kucoin.ticker('RPX-BTC');
@@ -24,12 +24,11 @@ kucoin.create_order('SELL', 'RPX-BTC', ticker.buy, 2000).then(function(response)
 
 ## Bot Usage
 
-Firstly you must create a ``config.js`` file in your root directory.
  
 Create config.js
 
 ```unix 
-mv config.example.js config.js
+cp config.example.js config.js
 ```
 
 Install npm modules
