@@ -2,7 +2,7 @@
   "name": "kucoin-api-nodejs",
   "version": "1.0.0",
   "description": "Nodejs Kucoin Api Wrapper with a simple trade bot",
-  "main": "src/api.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

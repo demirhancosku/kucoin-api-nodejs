@@ -1,6 +1,15 @@
 module.exports = {
-    _api_key : "****",
-    _api_secret : "****",
-    _api_latency : 500,
-    _api_pair : 'RPX-BTC'
+    api: {
+        key: '****',
+        secret: '****',
+        latency: 500,
+        pair: 'RPX-BTC'
+    },
+    orders: {
+        price_delimiter: 0.00000001,
+        amount: 2000
+    },
+    ui: {
+        lang: 'en'
+    }
 }

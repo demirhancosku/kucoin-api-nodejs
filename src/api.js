@@ -1,6 +1,5 @@
 "use strict";
 
-
 const _https = require("https");
 const _crypto = require("crypto");
 
