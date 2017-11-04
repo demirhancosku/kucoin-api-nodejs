@@ -1,7 +1,7 @@
 const Kucoin = require('./src/api'),
     config = require('./config');
 
-const lang = require('./src/lang/' + config.lang);
+const lang = require('./src/lang/' + config.ui.lang);
 
 let kucoin = new Kucoin(config.api.key, config.api.secret, config.api.latency),
     data = {},
