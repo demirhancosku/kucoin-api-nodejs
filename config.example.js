@@ -7,7 +7,8 @@ module.exports = {
     },
     orders: {
         price_delimiter: 0.00000001,
-        amount: 2000
+        amount: 2000,
+        before_die: './temp.json'
     },
     ui: {
         lang: 'en'

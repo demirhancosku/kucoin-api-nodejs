@@ -1,6 +1,8 @@
 const Kucoin = require('./src/api'),
     config = require('./config'),
-    lang = require('./src/lang/' + config.ui.lang);
+    lang = require('./src/lang/' + config.ui.lang),
+    jsonfile = require('jsonfile'),
+    beforeExit = require('before-exit');
 
 let kucoin = new Kucoin(config.api.key, config.api.secret, config.api.latency),
     data = {},
@@ -100,10 +102,10 @@ let trader = async () => {
         }
 
     } else if ( //There are two unfullfilled orders
-        data.active_orders.SELL.length > 0
-        && data.active_orders.BUY.length > 0
-        && data.active_orders.SELL[0][4] === 0
-        && data.active_orders.BUY[0][4] === 0
+    data.active_orders.SELL.length > 0
+    && data.active_orders.BUY.length > 0
+    && data.active_orders.SELL[0][4] === 0
+    && data.active_orders.BUY[0][4] === 0
     ) {
         summary.push(lang.there_are_two_unfullfilled_orders);
 
@@ -124,8 +126,8 @@ let trader = async () => {
 
 
     } else if ( //Was the sell order left alone?
-        data.active_orders.SELL.length > 0
-        && data.active_orders.BUY.length === 0
+    data.active_orders.SELL.length > 0
+    && data.active_orders.BUY.length === 0
     ) {
 
         //If there is an available space for sell, move it to there
@@ -147,8 +149,8 @@ let trader = async () => {
         }
 
     } else if ( //Was the buy order left alone
-        data.active_orders.BUY.length > 0
-        && data.active_orders.SELL.length === 0
+    data.active_orders.BUY.length > 0
+    && data.active_orders.SELL.length === 0
     ) {
 
         //If there is an available space for sell, move it to there
@@ -171,5 +173,17 @@ let trader = async () => {
     console.log(summary.reverse());
     await trader();
 }
+
+let beforeDie = (jsonfile.readFileSync(config.orders.before_die));
+
+if(!_.isEmpty(beforeDie)){
+    data = beforeDie;
+}
+
+
+beforeExit.do(function (signal) {
+    jsonfile.writeFileSync(config.orders.before_die, data);
+});
+
 
 trader();
