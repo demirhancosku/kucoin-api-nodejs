@@ -1,8 +1,5 @@
 # Kucoin Api Wrapper
 
-## Dependencies
-* Nodejs 8 and above
-
 
 ## API Wrapper
 

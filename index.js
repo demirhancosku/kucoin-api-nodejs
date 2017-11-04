@@ -173,4 +173,3 @@ let trader = async () => {
 }
 
 trader();
-//schedule.scheduleJob('*/10 * * * * *', trader);

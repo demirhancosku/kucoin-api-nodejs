@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/demirhancosku/kucoin-api-nodejs#readme",
   "dependencies": {
-    "node-schedule": "^1.2.5",
     "underscore": "^1.8.3"
   }
 }
