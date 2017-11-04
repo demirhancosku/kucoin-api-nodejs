@@ -112,3 +112,4 @@ typings/
 .idea/
 config.js
 package-lock.json
+temp.json

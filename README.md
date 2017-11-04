@@ -39,4 +39,3 @@ Run main script
 ```unix 
 node index.js
 ```
-  

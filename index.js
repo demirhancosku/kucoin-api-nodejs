@@ -176,7 +176,7 @@ let trader = async () => {
 
 let beforeDie = (jsonfile.readFileSync(config.orders.before_die));
 
-if(!_.isEmpty(beforeDie)){
+if (Object.keys(beforeDie).length !== 0) {
     data = beforeDie;
 }
 
