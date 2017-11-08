@@ -142,7 +142,7 @@ let trader = async () => {
                 await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
                 await kucoin.create_order('SELL', symbol, data.ticker.sell - pricedelimiter, amount);
             } else {
-                console.log(data.container.last_buy, data.container.last_buy !== 0);
+                //console.log(data.container.last_buy, data.container.last_buy !== 0);
                 summary.push(lang.cannot_readjust_sell_order);
             }
 
@@ -163,7 +163,7 @@ let trader = async () => {
                 await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
                 await kucoin.create_order('BUY', symbol, data.ticker.buy + pricedelimiter, amount);
             } else {
-                console.log(data.container.last_sell, data.container.last_sell !== 0);
+                //console.log(data.container.last_sell, data.container.last_sell !== 0);
                 summary.push(lang.cannot_readjust_buy_order);
             }
         }
