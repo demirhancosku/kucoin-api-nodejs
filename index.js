@@ -19,14 +19,14 @@ data.container = {
 }
 
 let setSell = async () => {
-    summary.push('Satış emri ' + data.ticker.sell + pricedelimiter + ' - ' + amount);
+    summary.push(lang.sell_order + ' '+ data.ticker.sell + pricedelimiter + ' - ' + amount);
 
     data.container.last_sell = data.ticker.sell - pricedelimiter;
     return kucoin.create_order('SELL', symbol, data.ticker.sell - pricedelimiter, amount);
 }
 
 let setBuy = async () => {
-    summary.push('Alış emri ' + data.ticker.buy + pricedelimiter + ' - ' + amount);
+    summary.push(lang.buy_order + ' ' + data.ticker.buy + pricedelimiter + ' - ' + amount);
 
     data.container.last_buy = data.ticker.buy + pricedelimiter;
     return kucoin.create_order('BUY', symbol, data.ticker.buy + pricedelimiter, amount);

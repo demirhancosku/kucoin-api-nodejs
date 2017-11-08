@@ -1,5 +1,8 @@
 module.exports = {
 
+    sell_order: 'Sell Order',
+    buy_order: 'Buy Order',
+
     not_enough_amount_for_sell: 'There isn\'t enough amount for sell',
     buy_order_canceled: 'Buy order canceled',
 
