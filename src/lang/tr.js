@@ -1,5 +1,8 @@
 module.exports = {
 
+    sell_order: 'Satış Emri',
+    buy_order: 'Alış Emri',
+
     not_enough_amount_for_sell: 'Satış için yeterli miktar yok',
     buy_order_canceled: 'Alış emri iptal',
 
