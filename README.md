@@ -40,7 +40,7 @@ Run main script
 node index.js
 ```
 
-#Donate
+# Donate
 
 If this repository helped you out feel free to donate.
 
