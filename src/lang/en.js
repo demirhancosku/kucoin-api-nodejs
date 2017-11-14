@@ -30,5 +30,7 @@ module.exports = {
     readjusting_buy_order: 'Readjustign buy order',
     cannot_readjust_buy_order: 'Cannot readjust buy order',
 
+    api_limit: 'We will wait for private api limit: ',
+
     delimiter: '----------------------'
 }

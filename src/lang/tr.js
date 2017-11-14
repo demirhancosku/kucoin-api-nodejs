@@ -30,5 +30,7 @@ module.exports = {
     readjusting_buy_order: 'Alış yer değiştiryoruz',
     cannot_readjust_buy_order: 'Alış yer değiştiremiyoruz',
 
+    api_limit: 'Özel sorgu limiti için beklememiz gerekiyor: ',
+
     delimiter: '----------------------'
 }
