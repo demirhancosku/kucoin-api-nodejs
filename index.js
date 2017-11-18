@@ -229,7 +229,7 @@ let trader = async () => {
 
     summary.push(lang.api_limit + (data.container.count * (86400 / 10000)).toString() + ' s.');
     console.log(summary.reverse());
-    tick();
+    await tick();
 }
 
 let tick = async () => {
