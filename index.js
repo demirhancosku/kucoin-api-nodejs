@@ -10,7 +10,7 @@ let kucoin = new Kucoin(config.api.key, config.api.secret, config.api.latency),
     amount = config.orders.amount,
     summary = [],
     symbol = config.api.pair,
-    minimum_amount = 0.00000001; //This is the minimum amount for increasing or decreasing the price
+    minimum_amount = 0.00000002; //This is the minimum amount for increasing or decreasing the price
 
 data.container = {
     last_sell: 0,
@@ -42,13 +42,23 @@ let setOrders = async () => {
     //Cancel the last sell order
     if (data.active_orders.SELL.length > 0) {
         data.container.count +=1;
-        await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
+
+        let cancel_result = await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
+        if(!cancel_result){
+            tick();
+            return false;
+        }
     }
 
     //Cancel the last buy order
     if (data.active_orders.BUY.length > 0) {
         data.container.count +=1;
-        await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+
+        let cancel_result = await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+        if(!cancel_result){
+            tick();
+            return false;
+        }
     }
 
 
@@ -62,7 +72,12 @@ let setOrders = async () => {
         summary.push(lang.not_enough_amount_for_sell);
 
         data.container.count +=1;
-        await kucoin.cancel_order('BUY', symbol, buyOrder.orderOid);
+        let cancel_result = await kucoin.cancel_order('BUY', symbol, buyOrder.orderOid);
+        if(!cancel_result){
+            tick();
+            return false;
+        }
+
         summary.push(lang.buy_order_canceled);
 
     }
@@ -73,7 +88,12 @@ let setOrders = async () => {
         summary.push(lang.not_enough_amount_for_buy);
 
         data.container.count +=1;
-        await kucoin.cancel_order('SELL', symbol, sellOrder.orderOid);
+        let cancel_result = await kucoin.cancel_order('SELL', symbol, sellOrder.orderOid);
+        if(!cancel_result){
+            tick();
+            return false;
+        }
+
         summary.push(lang.sell_order_canceled);
 
     }
@@ -128,8 +148,18 @@ let trader = async () => {
             } else {
                 summary.push(lang.price_range_is_not_okay_for_re_sorting);
                 data.container.count +=2;
-                await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
-                await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+                let cancel_result_sell = await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
+                if(!cancel_result_sell){
+                    tick();
+                    return false;
+                }
+
+                let cancel_result_buy = await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+                if(!cancel_result_buy){
+                    tick();
+                    return false;
+                }
+
                 summary.push(lang.orders_are_canceled_because_cannot_re_sort);
             }
         }
@@ -151,8 +181,15 @@ let trader = async () => {
             if ((data.container.last_buy < data.ticker.sell - pricedelimiter) && data.container.last_buy !== 0) {
                 summary.push(lang.readjusting_sell_order);
                 data.container.count +=2;
-                await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
+
+                let cancel_result_sell = await kucoin.cancel_order('SELL', symbol, data.active_orders.SELL[0][5]);
+                if(!cancel_result_sell){
+                    tick();
+                    return false;
+                }
+
                 await kucoin.create_order('SELL', symbol, data.ticker.sell - pricedelimiter, amount);
+
             } else {
                 //console.log(data.container.last_buy, data.container.last_buy !== 0);
                 summary.push(lang.cannot_readjust_sell_order);
@@ -173,8 +210,15 @@ let trader = async () => {
             if ((data.container.last_sell > data.ticker.buy + pricedelimiter) && data.container.last_sell !== 0) {
                 summary.push(lang.readjusting_buy_order);
                 data.container.count +=2;
-                await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+
+                let cancel_result_buy = await kucoin.cancel_order('BUY', symbol, data.active_orders.BUY[0][5]);
+                if(!cancel_result_buy){
+                    tick();
+                    return false;
+                }
+
                 await kucoin.create_order('BUY', symbol, data.ticker.buy + pricedelimiter, amount);
+
             } else {
                 //console.log(data.container.last_sell, data.container.last_sell !== 0);
                 summary.push(lang.cannot_readjust_buy_order);
@@ -185,6 +229,10 @@ let trader = async () => {
 
     summary.push(lang.api_limit + (data.container.count * (86400 / 10000)).toString() + ' s.');
     console.log(summary.reverse());
+    tick();
+}
+
+let tick = async () => {
     setTimeout(await trader, data.container.count * (86400 / 10000) * 1000);
 }
 

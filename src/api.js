@@ -82,7 +82,11 @@ class Kucoin {
                     body += chunk;
                 });
                 res.on('end', function () {
-                    resolve(JSON.parse(body).data);
+                    if(JSON.parse(body).success){
+                        resolve(JSON.parse(body).data);
+                    }else {
+                        resolve(false);
+                    }
                 });
 
                 res.on('error', function (e) {
