@@ -227,11 +227,10 @@ let trader = async () => {
 
     }
 
-    await tick();
+    tick();
 }
 
 let tick = async () => {
-
     summary.push(lang.api_limit + (data.container.count * (86400 / 10000)).toString() + ' s.');
     console.log(summary.reverse());
     setTimeout(await trader, data.container.count * (86400 / 10000) * 1000);
